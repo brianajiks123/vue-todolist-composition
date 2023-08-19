@@ -1,12 +1,14 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import { useAuthStore } from '@store/auth'
+import { d$auth } from '@store/auth'
 import HelloWorld from '@comp/HelloWorld.vue'
 import { computed } from 'vue';
 
 // Set Auth
-const auth = useAuthStore()
-const username = computed(() => auth.getUsername)
+const auth = d$auth()
+// Set User from Cookies
+auth.setUser()
+const username = computed(() => auth.g$user.id)
 </script>
 
 <template>

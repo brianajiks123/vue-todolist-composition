@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 // Import Authentication
-import { useAuthStore } from '@store/auth'
+import { d$auth } from '@store/auth'
 //Import Home View
 import HomeView from '@/views/HomeView.vue'
 
@@ -57,11 +57,13 @@ const router = createRouter({
 // Navigation Guards
 router.beforeEach((to, from, next) => {
   // Auth state
-  const loggedIn = useAuthStore().isLoggedIn
+  const loggedIn = d$auth().isLoggedIn
   // If Target Route Requires Auth & No Logged in User
   // Redirect to Login
   if (to.meta.auth && !loggedIn) {
     next({ name: 'Login' })
+  } else if (to.path === '/profile' && loggedIn) {
+    next({ name: 'Authenticated', params: { id: d$auth().g$user.id } })
   } else {
     // Then proceeds
     next()
