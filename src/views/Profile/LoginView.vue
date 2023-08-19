@@ -40,8 +40,10 @@ const submitForm = async () => {
     <!-- conditional rendering using v-if directive -->
     <form v-if="!auth.getUsername" method="post" @submit.prevent="submitForm" @reset="resetForm">
       <BaseInput name="username" v-model="input.username" placeholder="username" required />
-      <base-input name="password" v-model="input.password" placeholder="input password" type="password" required />
-      <button type="submit" hidden>Login</button>
+      <br />
+      <BaseInput name="password" v-model="input.password" placeholder="password" type="password" required />
+      <br />
+      <button type="submit">Login</button>
     </form>
     <!-- conditional rendering using v-else directive -->
     <h3 v-else>{{ auth.getUsername }}</h3>
