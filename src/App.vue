@@ -1,14 +1,14 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import { d$auth } from '@store/auth'
-import HelloWorld from '@comp/HelloWorld.vue'
-import { computed } from 'vue';
+  import { RouterLink, RouterView } from 'vue-router'
+  import { d$auth } from '@store/auth'
+  import HelloWorld from '@comp/HelloWorld.vue'
+  import { computed } from 'vue';
 
-// Set Auth
-const auth = d$auth()
-// Set User from Cookies
-auth.setUser()
-const username = computed(() => auth.g$user.id)
+  // Set Auth
+  const auth = d$auth()
+  // Set User from Cookies
+  auth.setUser()
+  const username = computed(() => auth.getUser.id)
 </script>
 
 <template>
@@ -20,12 +20,11 @@ const username = computed(() => auth.g$user.id)
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/About">About</RouterLink>
         <RouterLink :to="{ name: 'Authenticated', params: { id: username ?? '' } }">
           Profile
         </RouterLink>
-        <RouterLink :to="{ name: 'list' }">Todolist</RouterLink>
-        <RouterLink to="/404">404</RouterLink>
+        <RouterLink :to="{ name: 'List' }">Todolist</RouterLink>
       </nav>
     </div>
   </header>

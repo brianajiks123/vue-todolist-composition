@@ -25,7 +25,7 @@ const submitForm = async () => {
     resetForm()
     router.replace({
       name: 'Authenticated',
-      params: { id: auth.getUsername }
+      params: { id: auth.getUser.id }
     })
   } catch (error) {
     console.log(error)
@@ -36,16 +36,19 @@ const submitForm = async () => {
 
 <template>
   <div>
-    <h1>Login</h1>
+    <h1 style="color: green;">Login</h1>
+    <br>
     <!-- conditional rendering using v-if directive -->
-    <form v-if="!auth.getUsername" method="post" @submit.prevent="submitForm" @reset="resetForm">
+    <form v-if="!auth.getUser.id" method="post" @submit.prevent="submitForm" @reset="resetForm">
       <BaseInput name="username" v-model="input.username" placeholder="username" required />
-      <br />
+      <br>
       <BaseInput name="password" v-model="input.password" placeholder="password" type="password" required />
-      <br />
-      <button type="submit">Login</button>
+      <br>
+      <button type="submit" style="background-color: green; color: azure; padding: 5px; border-radius: 5px;">Login</button>
+      <br><br />
+      <p>Already have account? <RouterLink :to="{ name: 'Regist' }">register</RouterLink></p>
     </form>
     <!-- conditional rendering using v-else directive -->
-    <h3 v-else>{{ auth.getUsername }}</h3>
+    <h3 v-else>{{ auth.getUser.id }}</h3>
   </div>
 </template>

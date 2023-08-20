@@ -9,12 +9,12 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'Home',
       component: HomeView
     },
     {
       path: '/about',
-      name: 'about',
+      name: 'About',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
@@ -22,7 +22,7 @@ const router = createRouter({
     },
     {
       path: '/list',
-      name: 'list',
+      name: 'List',
       component: () => import('@/views/ListView.vue'),
       meta: { auth: true }
     },
@@ -41,6 +41,11 @@ const router = createRouter({
           path: '',
           name: 'Login',
           component: () => import('@/views/Profile/LoginView.vue')
+        },
+        {
+          path: '',
+          name: 'Regist',
+          component: () => import('@/views/Profile/RegisterView.vue'),
         },
         {
           // Add Optional Params
@@ -63,7 +68,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.auth && !loggedIn) {
     next({ name: 'Login' })
   } else if (to.path === '/profile' && loggedIn) {
-    next({ name: 'Authenticated', params: { id: d$auth().g$user.id } })
+    next({ name: 'Authenticated', params: { id: d$auth().getUser.id } })
   } else {
     // Then proceeds
     next()

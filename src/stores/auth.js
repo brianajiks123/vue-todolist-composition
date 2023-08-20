@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { setCookies, certCookies } from '@/plugins/cookies'
+import { setCookies, certCookies,  } from '@/plugins/cookies'
 
 import * as s$auth from '@/services/auth'
 
@@ -11,7 +11,7 @@ export const d$auth = defineStore('auth', () => {
     name: undefined,
     role: undefined
   })
-  // Set Username & Login
+  // Set Login System
   const setUser = () => {
     try {
       const { id, name, role } = certCookies()
@@ -20,7 +20,8 @@ export const d$auth = defineStore('auth', () => {
         name,
         role
       }
-      return 'User Authenticated'
+      // return 'User Authenticated'
+      return user.value
     } catch ({ message }) {
       user.value = {
         id: undefined,
@@ -30,7 +31,6 @@ export const d$auth = defineStore('auth', () => {
       throw message
     }
   }
-
   const login = async (body) => {
     try {
       const { data } = await s$auth.login(body)
@@ -40,15 +40,24 @@ export const d$auth = defineStore('auth', () => {
       throw message ?? error
     }
   }
+  const register = async (body) => {
+    try {
+      const { data } = await s$auth.register(body)
+      return data
+    } catch ({ error, message }) {
+      throw message ?? error
+    }
+  }
   // Getter
-  const g$user = computed(() => user.value)
+  const getUser = computed(() => user.value)
   const isLoggedIn = computed(() => !!user.value.id)
 
   return {
     // actions
     setUser,
     login,
-    g$user,
+    register,
+    getUser,
     isLoggedIn
   }
 })
