@@ -1,0 +1,1 @@
+import{s as n,o as s,c as a,a as t,t as l,u as r}from"./index-d0f6f896.js";const u=t("br",null,null,-1),d={__name:"AuthenticatedView",setup(c){const e=n();function o(){alert("This button isn't work!")}return(i,_)=>(s(),a("div",null,[t("h1",null,l(r(e).params.id)+" Detail",1),u,t("button",{onClick:o,style:{color:"red"}},"Logout")]))}};export{d as default};
